@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -e
 
 export DBDIR=/data/db/$HOSTNAME
 mkdir -p $DBDIR
@@ -7,4 +7,4 @@ mkdir -p $DBDIR
 echo -n "Made DBDIR: "
 echo $DBDIR
 
-exec /usr/bin/mongod $@ --oplogSize 512 --smallfiles --noprealloc --replSet rs0 --dbpath $DBDIR
+exec $@ --oplogSize 512 --smallfiles --noprealloc --replSet rs0 --dbpath $DBDIR

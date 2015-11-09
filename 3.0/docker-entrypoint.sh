@@ -1,19 +1,10 @@
 #!/bin/bash
-set -e
+set -xe
 
-if [ "${1:0:1}" = '-' ]; then
-	set -- mongod "$@"
-fi
+export DBDIR=/data/db/$HOSTNAME
+mkdir -p $DBDIR
 
-if [ "$1" = 'mongod' ]; then
-	chown -R mongodb /data/db
+echo -n "Made DBDIR: "
+echo $DBDIR
 
-	numa='numactl --interleave=all'
-	if $numa true &> /dev/null; then
-		set -- $numa "$@"
-	fi
-
-	exec gosu mongodb "$@"
-fi
-
-exec "$@"
+exec /usr/bin/mongod $@ --oplogSize 512 --smallfiles --noprealloc --replSet rs0 --dbpath $DBDIR

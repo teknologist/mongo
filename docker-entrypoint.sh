@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -xe
 
 export DBDIR=/data/db/$HOSTNAME
 mkdir -p $DBDIR

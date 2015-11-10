@@ -44,4 +44,4 @@ COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 27017
-CMD ["mongod"]
+CMD mongod --oplogSize 512 --smallfiles --noprealloc --replSet rs0 --dbpath /data/db/$HOSTNAME
